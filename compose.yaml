@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+    aspire-dashboard:
+        image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
+        env:
+         - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+        ports:
+            - "18888:18888"
+            - "4316:4317"
+    collector:
+        image: otel/opentelemetry-collector-contrib:latest
+        volumes:
+        - ./collector-compose.yaml:/etc/otelcol-contrib/config.yaml
+        ports:
+        - "4317:4317"   # OTLP gRPC receiver
+        - "4318:4318"   # OTLP http receiver
+    debug:
+        image: registry.fedoraproject.org/fedora:40-x86_64
+    # jaeger:
+    #     image: jaegertracing/all-in-one:1.35
+    #     env:
+    #         - COLLECTOR_OTLP_ENABLED=true
+    #     ports:
+    #         - "16686:16686"
+    #         - "4317:4317"
+    #         - "4318:4318"

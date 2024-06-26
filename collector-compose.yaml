@@ -1,0 +1,41 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+      grpc:
+
+processors:
+  batch:
+  filter/healthcheck:
+    traces:
+        span:
+          - 'attributes["http.target"] == "/healthcheck"'
+  attributes/enrich:
+    actions:
+      - key: age
+        action: delete
+      - key: account_id
+        value: 2245
+        action: insert
+
+
+exporters:
+  otlp:
+    endpoint: aspire-dashboard:18889
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp]
+      processors: [batch, filter/healthcheck, attributes/enrich]
+    metrics:
+      receivers: [otlp]
+      exporters: [otlp]
+      processors: [batch]
+    logs:
+      receivers: [otlp]
+      exporters: [otlp]
+      processors: [batch]

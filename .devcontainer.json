@@ -1,0 +1,19 @@
+{
+  "image": "vscode_kcdc-otel",
+  "remoteUser": "root",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,z,type=bind",
+  "workspaceFolder": "/workspace",
+  "runArgs": [
+    "--network=host"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "shardulm94.trailing-spaces",
+        "ms-python.python",
+        "ms-python.autopep8"
+      ]
+    }
+  }
+}

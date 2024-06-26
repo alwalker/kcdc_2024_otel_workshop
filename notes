@@ -1,0 +1,5 @@
+- otel -> push vs scrape
+- pure otel -> proxy -> backend/vendor
+- look into http baggage
+- span events -> kinda like logs
+- do sample
